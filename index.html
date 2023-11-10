@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>🧑 Facial Expression Animations in CSS</title>
+        <link rel="stylesheet" href="./styles.css" />
+    </head>
+    <body>
+        <div class="face">
+            <div class="screen">
+                <div class="expression"></div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        const states = [
+            'awake',
+            'awake unsatisfied',
+            'awake',
+            'awake surprised',
+            'surprised',
+            'angry',
+            ''
+        ]
+
+        let i = 0
+
+        document.querySelector('.face').addEventListener('click', (e) => {
+            e.currentTarget.className = `face ${states[i]}`
+
+            if (i === states.length - 1) {
+                i = 0
+            } else {
+                i++
+            }
+        })
+    </script>
+</html>

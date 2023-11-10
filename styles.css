@@ -1,0 +1,207 @@
+body {
+    background: #333;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.face {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #CAA277;
+    border: 5px solid #2B1607;
+    user-select: none;
+    cursor: pointer;
+}
+
+.face::before,
+.face::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: -60px;
+    width: 50px;
+    background: #44595E;
+    border: 5px solid #2B1607;
+    height: 100%;
+}
+
+.face::after {
+    top: 50%;
+    right: -115px;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 90%;
+}
+
+.screen {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    background: #4D3A29;
+    border: 5px solid #2B1607;
+    overflow: hidden;
+}
+
+.screen::before {
+    content: '';
+    width: 10px;
+    height: 100%;
+    display: block;
+    background: #CAA277;
+    border-right: 5px solid #2B1607;
+}
+
+.face:not(.awake):not(.surprised):not(.angry) .screen::after {
+    content: 'Z';
+    position: absolute;
+    top: 45px;
+    right: 50px;
+    color: #FFF;
+    font-weight: bold;
+    letter-spacing: 6px;
+    transform: rotate(-27deg);
+    opacity: 0;
+    animation: sleep 4s ease-in-out infinite;
+}
+
+/* Mouth */
+.expression {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    background: #FFF;
+}
+
+/* Eyes */
+.expression::before,
+.expression::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    top: -20px;
+    left: -30px;
+    border-bottom: 3px solid #FFF;
+    transition: all .3s cubic-bezier(.55, 0, .1, 1);
+}
+
+.expression::after {
+    left: auto;
+    right: -30px;
+}
+
+
+/* Awake state */
+.awake .expression {
+    width: 30px;
+    height: 15px;
+    border-bottom: 5px solid #FFF;
+    background: transparent;
+}
+
+.awake .expression::before,
+.awake .expression::after {
+    width: 15px;
+    height: 15px;
+    background: #FFF;
+    border: 0;
+    animation: blink 4s cubic-bezier(.55, 0, .1, 1) infinite;
+}
+
+/* Surprised state */
+.surprised .expression::before,
+.surprised .expression::after {
+    width: 30px;
+    height: 30px;
+    top: -40px;
+    left: -40px;
+    background: #FFF;
+    border: 0;
+}
+
+.surprised .expression::after {
+    left: auto;
+    right: -40px;
+}
+
+/* Unsatisfied state */
+.unsatisfied .expression {
+    border-radius: 0;
+}
+
+/* Angry */
+.angry .expression::before,
+.angry .expression::after {
+    top: -30px;
+    width: 25px;
+    height: 10px;
+}
+
+.angry .expression::before {
+    transform: rotate(10deg);
+}
+
+.angry .expression::after {
+    transform: rotate(-10deg);
+}
+
+.angry {
+    animation: shake 1s linear infinite;
+}
+
+@keyframes blink {
+    0% { transform: scaleY(1); }
+    2% { transform: scaleY(.1); }
+    4% { transform: scaleY(1); }
+    50% { transform: scaleY(1); }
+    52% { transform: scaleY(.1); }
+    54% { transform: scaleY(1); }
+    56% { transform: scaleY(.1); }
+    58% { transform: scaleY(1); }
+    100% { transform: scaleY(1); }
+}
+
+@keyframes shake {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    10% { transform: translate(-50%, -50%) rotate(15deg); }
+    20% { transform: translate(-50%, -50%) rotate(-15deg); }
+    30% { transform: translate(-50%, -50%) rotate(15deg); }
+    40% { transform: translate(-50%, -50%) rotate(-15deg); }
+    50% { transform: translate(-50%, -50%) rotate(15deg); }
+    60% { transform: translate(-50%, -50%) rotate(-15deg); }
+    70% { transform: translate(-50%, -50%) rotate(15deg); }
+    80% { transform: translate(-50%, -50%) rotate(-15deg); }
+    90% { transform: translate(-50%, -50%) rotate(15deg); }
+    100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+@keyframes sleep {
+    0% { opacity: 0%; }
+    30% {
+        opacity: 100%;
+        right: 30px;
+        content: 'Z.'
+    }
+    60% {
+        right: 50px;
+        content: 'Z..'
+    }
+    90% {
+        right: 30px;
+    }
+    100% {
+        top: -30px;
+    }
+}
